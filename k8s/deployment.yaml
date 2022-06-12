@@ -41,6 +41,7 @@ kind: Deployment
 metadata:
   name: kubenews
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: kubenews
@@ -50,17 +51,17 @@ spec:
         app: kubenews
     spec:
       containers:
-      - name: kubenews
-        image: wesleyoliveirasilva/kube-news:v2
-        env:
-        - name: DB_DATABASE
-          value: "kubenews"
-        - name: DB_USERNAME
-          value: "kubenews"
-        - name: DB_PASSWORD
-          value: "InitDevops#123"
-        - name: DB_HOST
-          value: "postgre"
+        - name: kubenews
+          image: wesleyoliveirasilva/kube-news:v2
+          env:
+            - name: DB_DATABASE
+              value: "kubenews"
+            - name: DB_USERNAME
+              value: "kubenews"
+            - name: DB_PASSWORD
+              value: "InitDevops#123"
+            - name: DB_HOST
+              value: "postgre"
 ---
 apiVersion: v1
 kind: Service
@@ -70,7 +71,7 @@ spec:
   selector:
     app: kubenews
   ports:
-  - port: 80
-    targetPort: 8080
-    nodePort: 30000
-  type: NodePort
+    - port: 80
+      targetPort: 8080
+      nodePort: 30000
+  type: LoadBalancer
