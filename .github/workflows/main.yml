@@ -37,6 +37,6 @@ jobs:
           file: ./src/Dockerfile
           context: ./src
           push: true
-          tags:
+          tags: |
             wesleyoliveirasilva/kube-news:latest
             wesleyoliveirasilva/kube-news:${{github.run_number}}
